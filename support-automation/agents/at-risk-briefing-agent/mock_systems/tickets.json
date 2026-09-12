@@ -1,0 +1,13 @@
+{
+  "acme-corp": [
+    {"id": "T-0912", "date": "2026-09-02", "subject": "Reporting totals wrong again", "category": "bug", "sentiment": "negative", "status": "closed", "csat": 2, "note": "Second report of the same reporting bug."},
+    {"id": "T-0871", "date": "2026-08-19", "subject": "Export keeps failing for large accounts", "category": "bug", "sentiment": "negative", "status": "closed", "csat": 2},
+    {"id": "T-0844", "date": "2026-08-05", "subject": "Onboarding for new admins", "category": "how_to", "sentiment": "neutral", "status": "closed", "csat": 4},
+    {"id": "T-0790", "date": "2026-07-14", "subject": "Can we get a discount at renewal?", "category": "billing", "sentiment": "neutral", "status": "closed", "csat": 3, "note": "Price sensitivity flagged by CSM."},
+    {"id": "T-0742", "date": "2026-06-28", "subject": "Integration with our CRM never worked", "category": "bug", "sentiment": "negative", "status": "closed", "csat": 1, "note": "Customer gave up on integrations after this."}
+  ],
+  "globex-llc": [
+    {"id": "T-0905", "date": "2026-08-30", "subject": "How do I add a webhook?", "category": "how_to", "sentiment": "positive", "status": "closed", "csat": 5},
+    {"id": "T-0810", "date": "2026-07-22", "subject": "Loving the new reporting, one small request", "category": "feedback", "sentiment": "positive", "status": "closed", "csat": 5}
+  ]
+}

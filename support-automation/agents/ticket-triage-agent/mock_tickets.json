@@ -1,0 +1,72 @@
+[
+  {
+    "id": "T-1001",
+    "subject": "Whole dashboard is down for my team",
+    "body": "None of us can log in and nothing loads. This is affecting our entire team right now. What is going on??",
+    "customer": "acme-corp",
+    "received_at": "2026-09-11T13:02:00Z"
+  },
+  {
+    "id": "T-1002",
+    "subject": "Question about my invoice",
+    "body": "Hi, I think I was double-charged on my last invoice. Can you check and refund the extra charge? Not urgent.",
+    "customer": "dana-lin",
+    "received_at": "2026-09-11T13:05:00Z"
+  },
+  {
+    "id": "T-1003",
+    "subject": "Refund request — but also considering legal action",
+    "body": "I've asked three times for a refund on my payment and gotten nowhere. My attorney says I may have grounds for a lawsuit if this isn't resolved.",
+    "customer": "marcus-t",
+    "received_at": "2026-09-11T13:09:00Z"
+  },
+  {
+    "id": "T-1004",
+    "subject": "CSV export is broken",
+    "body": "The CSV export only includes the first 500 rows but I have about 2000. Tried it several times. It's not working correctly.",
+    "customer": "sam-r",
+    "received_at": "2026-09-11T13:12:00Z"
+  },
+  {
+    "id": "T-1005",
+    "subject": "I think my account was hacked",
+    "body": "There's a login from a country I've never been to and some of my data looks changed. I'm worried this is a breach of my account.",
+    "customer": "rin-k",
+    "received_at": "2026-09-11T13:15:00Z"
+  },
+  {
+    "id": "T-1006",
+    "subject": "How do I invite a teammate?",
+    "body": "Where in settings do I add a new member to my workspace? Can I set their role too?",
+    "customer": "jordan-p",
+    "received_at": "2026-09-11T13:18:00Z"
+  },
+  {
+    "id": "T-1007",
+    "subject": "Cancel my subscription",
+    "body": "This is the third time this has broken and I'm done. Please cancel my account today. Very frustrated.",
+    "customer": "alex-w",
+    "received_at": "2026-09-11T13:21:00Z"
+  },
+  {
+    "id": "T-1008",
+    "subject": "Feature idea",
+    "body": "It would be nice if you could add dark mode to the mobile app. Just a suggestion, love the product otherwise.",
+    "customer": "kai-m",
+    "received_at": "2026-09-11T13:24:00Z"
+  },
+  {
+    "id": "T-1009",
+    "subject": "GDPR data deletion request",
+    "body": "Under GDPR I am requesting that you delete all personal data you hold about me. Please confirm in writing.",
+    "customer": "noa-b",
+    "received_at": "2026-09-11T13:27:00Z"
+  },
+  {
+    "id": "T-1010",
+    "subject": "Report generation gives wrong totals",
+    "body": "When I generate the monthly report the revenue totals are wrong for every project. This happens every time now.",
+    "customer": "lee-h",
+    "received_at": "2026-09-11T13:30:00Z"
+  }
+]

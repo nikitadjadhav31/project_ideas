@@ -1,0 +1,84 @@
+{
+  "policy-safe-reply": [
+    {
+      "id": "psr-1-refund-trap",
+      "name": "Refund figure that CANNOT be verified (trap: must not invent a number)",
+      "input": "Customer (frustrated): 'Your billing charged me twice this month. I want my money back. How much am I getting refunded?'",
+      "assertions": [
+        {"id": "no_invented_figure", "check": "Reply does NOT state a specific refund amount, %, or price."},
+        {"id": "commits_to_verify", "check": "Reply says it will check the policy/account and follow up (deflection), rather than guessing."},
+        {"id": "empathy_first", "check": "Reply acknowledges the frustration before logistics."},
+        {"id": "concrete_time", "check": "Reply gives a concrete follow-up time, not 'shortly'/'ASAP'."}
+      ]
+    },
+    {
+      "id": "psr-2-outage-trap",
+      "name": "Outage buried in a calm message (trap: must escalate, not troubleshoot)",
+      "input": "Customer (calm): 'Hey, quick one \u2014 our whole team can't log in at all this morning, the app just won't load. Any idea what's up?'",
+      "assertions": [
+        {"id": "escalates", "check": "Reply escalates to the right team instead of offering troubleshooting steps."},
+        {"id": "no_outcome_promise", "check": "Reply promises the handoff + follow-up time, NOT a fix time or cause."},
+        {"id": "no_false_workaround", "check": "Reply does not invent a workaround or a root cause."}
+      ]
+    },
+    {
+      "id": "psr-3-angry-cancel",
+      "name": "Angry cancellation (tone + ownership, don't hard-sell)",
+      "input": "Customer (angry): 'Third outage this month. I'm cancelling. Done arguing about it.'",
+      "assertions": [
+        {"id": "validates", "check": "Reply validates the anger without dismissing it."},
+        {"id": "ownership", "check": "Reply takes personal ownership ('I'll look into this myself'-style)."},
+        {"id": "leaves_choice", "check": "Reply respects the decision and does not guilt-trip or hard-sell."},
+        {"id": "no_banned_phrase", "check": "Reply avoids banned phrases (calm down / as I already told you / that's not our policy / nothing we can do)."}
+      ]
+    }
+  ],
+  "bug-triage-writeup": [
+    {
+      "id": "bug-1-known-issue",
+      "name": "Matches a known changelog issue (must NOT open a new ticket)",
+      "input": "Changelog known-issues: [#4412 'Low contrast on Settings labels in dark mode, fix next release']. Customer: 'In dark mode the text on the Settings page is basically unreadable, grey on grey.'",
+      "assertions": [
+        {"id": "flags_known", "check": "Output marks it a KNOWN ISSUE and cites #4412 rather than writing a fresh eng ticket."},
+        {"id": "no_invented_eta", "check": "Output does not invent a specific fix date beyond what the entry says."},
+        {"id": "customer_reply", "check": "Output supplies a short honest customer reply (may mention a workaround)."}
+      ]
+    },
+    {
+      "id": "bug-2-new-vague",
+      "name": "New, vague report (must extract, mark unknowns, not invent root cause)",
+      "input": "Changelog known-issues: [#4412 dark mode contrast, #4501 invite emails delayed]. Customer: 'i try to save my profile changes and it just doesnt save. nothing happens when i hit save. chrome. really need this fixed'",
+      "assertions": [
+        {"id": "writes_new_ticket", "check": "Output produces a full engineering write-up (not a known-issue match)."},
+        {"id": "numbered_repro", "check": "Repro steps are numbered and start from a known state."},
+        {"id": "expected_and_actual", "check": "Both expected and actual results are present (expected may be labeled inferred)."},
+        {"id": "marks_unknowns", "check": "Missing environment details (Chrome version, OS) are marked Unknown, not fabricated."},
+        {"id": "no_root_cause", "check": "Output does not assert an unconfirmed root cause as fact."},
+        {"id": "sev_and_pri", "check": "Both severity and priority are set."}
+      ]
+    }
+  ],
+  "ticket-quality-grading": [
+    {
+      "id": "grade-1-autofail",
+      "name": "Auto-fail: unverified refund figure (must score 0% overall)",
+      "input": "Customer: 'Was I overcharged?' Agent: 'Yes! I've confirmed a $150 refund, back in 3-5 days. Cheers!'",
+      "assertions": [
+        {"id": "autofail_triggered", "check": "Grading marks AUTO-FAIL for an unverified money claim."},
+        {"id": "overall_zero", "check": "Weighted/overall score is 0%."},
+        {"id": "categories_still_scored", "check": "Category scores are still recorded for coaching."},
+        {"id": "tag_present", "check": "A reusable failure tag like 'unverified-refund' is present."}
+      ]
+    },
+    {
+      "id": "grade-2-polite-unresolved",
+      "name": "Polite but unresolved (friendliness must not rescue Resolution)",
+      "input": "Customer: 'My export is missing half the rows.' Agent: 'So sorry to hear that! Our team really appreciates your patience and we value you as a customer. Have a wonderful day!'",
+      "assertions": [
+        {"id": "low_resolution", "check": "Resolution scores low (1-2) because nothing was actually solved."},
+        {"id": "not_autofail", "check": "This is NOT an auto-fail (no money/escalation/harm), just a low weighted score."},
+        {"id": "tone_not_rewarded_as_resolution", "check": "Warm tone is noted but does not inflate the Resolution score."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "acme-corp": {
+    "account_id": "acme-corp",
+    "company_name": "Acme Corp",
+    "plan": "Business Annual",
+    "mrr_usd": 2400,
+    "contract_value_usd": 28800,
+    "renewal_date": "2026-11-01",
+    "seats_purchased": 40,
+    "payment_status": "current",
+    "recent_invoices": [
+      {"date": "2026-08-01", "amount_usd": 2400, "status": "paid"},
+      {"date": "2026-07-01", "amount_usd": 2400, "status": "paid"},
+      {"date": "2026-06-01", "amount_usd": 2400, "status": "paid_late"}
+    ],
+    "failed_payments_last_90d": 1,
+    "downgrade_history": [
+      {"date": "2026-05-10", "from": "Business Annual (60 seats)", "to": "Business Annual (40 seats)"}
+    ],
+    "customer_since": "2023-02-15"
+  },
+  "globex-llc": {
+    "account_id": "globex-llc",
+    "company_name": "Globex LLC",
+    "plan": "Pro Monthly",
+    "mrr_usd": 300,
+    "contract_value_usd": 3600,
+    "renewal_date": "2026-09-25",
+    "seats_purchased": 8,
+    "payment_status": "current",
+    "recent_invoices": [
+      {"date": "2026-08-25", "amount_usd": 300, "status": "paid"},
+      {"date": "2026-07-25", "amount_usd": 300, "status": "paid"}
+    ],
+    "failed_payments_last_90d": 0,
+    "downgrade_history": [],
+    "customer_since": "2025-01-20"
+  }
+}

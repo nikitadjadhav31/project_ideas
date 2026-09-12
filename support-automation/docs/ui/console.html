@@ -1,0 +1,623 @@
+<title>Support Automation Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --surface-2:#f0f2f5; --inset:#eef1f4;
+    --ink:#171a20; --muted:#5c6672; --faint:#8b95a3;
+    --border:#e2e6ec; --border-strong:#cfd5de;
+    --accent:#0d7f8f; --accent-ink:#0a6270; --accent-soft:#e2f1f3;
+    --crit:#c93c3c; --crit-soft:#fbe9e9;
+    --warn:#c67815; --warn-soft:#fbf0dd;
+    --good:#2f8f63; --good-soft:#e4f2ea;
+    --watch:#b08a1e; --watch-soft:#f8f0d8;
+    --shadow:0 1px 2px rgba(19,24,33,.04),0 2px 8px rgba(19,24,33,.05);
+    --shadow-lift:0 4px 16px rgba(19,24,33,.09);
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  :root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
+    --bg:#0e1116; --surface:#161b22; --surface-2:#1b212b; --inset:#12171e;
+    --ink:#e6e9ef; --muted:#9aa4b2; --faint:#6d7787;
+    --border:#262d38; --border-strong:#333c49;
+    --accent:#3cb7c7; --accent-ink:#7fd6e1; --accent-soft:#123039;
+    --crit:#e07070; --crit-soft:#33191b; --warn:#e0a24a; --warn-soft:#33260f;
+    --good:#5fbf8c; --good-soft:#14271d; --watch:#d8b14a; --watch-soft:#2c2410;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.35);
+    --shadow-lift:0 6px 22px rgba(0,0,0,.45);
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0e1116; --surface:#161b22; --surface-2:#1b212b; --inset:#12171e;
+    --ink:#e6e9ef; --muted:#9aa4b2; --faint:#6d7787;
+    --border:#262d38; --border-strong:#333c49;
+    --accent:#3cb7c7; --accent-ink:#7fd6e1; --accent-soft:#123039;
+    --crit:#e07070; --crit-soft:#33191b; --warn:#e0a24a; --warn-soft:#33260f;
+    --good:#5fbf8c; --good-soft:#14271d; --watch:#d8b14a; --watch-soft:#2c2410;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 10px rgba(0,0,0,.35);
+    --shadow-lift:0 6px 22px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;
+    -webkit-font-smoothing:antialiased;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto;padding-block:22px 64px;padding-inline:20px}
+  h1,h2,h3{text-wrap:balance;margin:0}
+  .mono{font-family:var(--mono)}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  /* ---- masthead ---- */
+  .mast{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding-bottom:18px;border-bottom:1px solid var(--border)}
+  .brand{display:flex;align-items:center;gap:13px}
+  .glyph{width:38px;height:38px;border-radius:9px;flex:0 0 auto;display:grid;place-items:center;
+    background:var(--accent);color:#fff;font-family:var(--mono);font-weight:600;font-size:19px;
+    box-shadow:var(--shadow)}
+  :root[data-theme="dark"] .glyph, :root:not([data-theme="light"]) .glyph{color:#08222a}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .glyph{color:#08222a}}
+  .brand h1{font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .brand .sub{color:var(--muted);font-size:12.5px;margin-top:1px}
+  .mast .meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+  .live{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border:1px solid var(--border);
+    border-radius:999px;background:var(--surface);font-family:var(--mono);font-size:11px;letter-spacing:.02em}
+  .live .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-soft)}
+  .themebtn{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);
+    border:1px solid var(--border);border-radius:7px;padding:5px 10px;cursor:pointer}
+  .themebtn:hover{border-color:var(--border-strong);color:var(--ink)}
+
+  /* ---- tabs ---- */
+  .tabs{display:flex;gap:6px;margin:20px 0 22px;flex-wrap:wrap}
+  .tab{appearance:none;border:1px solid var(--border);background:var(--surface);color:var(--muted);
+    font-family:var(--sans);font-size:13.5px;font-weight:500;border-radius:9px;cursor:pointer;
+    padding:9px 15px;display:flex;align-items:center;gap:9px;transition:.12s}
+  .tab:hover{border-color:var(--border-strong);color:var(--ink)}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .tab .n{font-family:var(--mono);font-size:11px;opacity:.6}
+  .tab .cnt{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:6px;
+    background:var(--surface-2);color:var(--muted)}
+  .tab[aria-selected="true"] .cnt{background:rgba(255,255,255,.16);color:inherit}
+
+  .panel[hidden]{display:none}
+  .lede{color:var(--muted);font-size:13.5px;max-width:70ch;margin:-4px 0 20px}
+  .lede b{color:var(--ink);font-weight:600}
+
+  /* ---- tiles ---- */
+  .tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:22px}
+  .tile{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 15px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .tile .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .tile .v{font-family:var(--mono);font-size:27px;font-weight:600;letter-spacing:-.02em;margin-top:7px;line-height:1}
+  .tile .d{font-size:12px;color:var(--muted);margin-top:6px}
+  .tile.stripe::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
+  .tile.s-crit::before{background:var(--crit)} .tile.s-warn::before{background:var(--warn)}
+  .tile.s-good::before{background:var(--good)} .tile.s-acc::before{background:var(--accent)}
+  .tile.s-crit .v{color:var(--crit)} .tile.s-good .v{color:var(--good)} .tile.s-warn .v{color:var(--warn)}
+
+  /* ---- section headers ---- */
+  .sec{margin:26px 0 13px;display:flex;align-items:baseline;gap:10px}
+  .sec h2{font-size:14px;font-weight:600;letter-spacing:.01em}
+  .sec .hint{font-size:12px;color:var(--faint)}
+  .rule{flex:1;height:1px;background:var(--border)}
+
+  /* ---- table ---- */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+  .tscroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  thead th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);
+    font-weight:600;padding:11px 14px;background:var(--surface-2);border-bottom:1px solid var(--border);white-space:nowrap}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:var(--surface-2)}
+  td.id{font-family:var(--mono);font-weight:500;white-space:nowrap}
+  .reason{color:var(--muted);font-size:12px;max-width:42ch}
+  .reason code{font-family:var(--mono);color:var(--accent-ink);font-size:11.5px}
+
+  /* ---- pills ---- */
+  .pill{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;font-weight:500;
+    padding:3px 8px;border-radius:6px;white-space:nowrap;line-height:1.3;border:1px solid transparent}
+  .p-crit{background:var(--crit-soft);color:var(--crit);border-color:color-mix(in srgb,var(--crit) 22%,transparent)}
+  .p-warn{background:var(--warn-soft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 22%,transparent)}
+  .p-good{background:var(--good-soft);color:var(--good);border-color:color-mix(in srgb,var(--good) 22%,transparent)}
+  .p-watch{background:var(--watch-soft);color:var(--watch);border-color:color-mix(in srgb,var(--watch) 24%,transparent)}
+  .p-neu{background:var(--surface-2);color:var(--muted);border-color:var(--border)}
+  .p-acc{background:var(--accent-soft);color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent) 25%,transparent)}
+  .src{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .src.gate{color:var(--crit)}
+
+  /* ---- live classifier ---- */
+  .classifier{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.classifier{grid-template-columns:1fr}}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+  .field label{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .field input,.field textarea{font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--inset);
+    border:1px solid var(--border);border-radius:8px;padding:10px 12px;resize:vertical;width:100%}
+  .field textarea{min-height:90px;line-height:1.5}
+  .field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .samples{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .chip{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);
+    border-radius:999px;padding:4px 10px;cursor:pointer}
+  .chip:hover{border-color:var(--accent);color:var(--accent-ink)}
+  .verdict{background:var(--inset);border:1px solid var(--border);border-radius:12px;padding:16px;
+    display:flex;flex-direction:column;gap:12px;min-height:100%}
+  .verdict .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .verdict .big{font-size:15px;font-weight:600}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px}
+  .kv dt{color:var(--faint);font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;align-self:center}
+  .kv dd{margin:0}
+  .trace{font-family:var(--mono);font-size:11.5px;color:var(--muted);background:var(--surface);border:1px solid var(--border);
+    border-radius:8px;padding:10px 12px;line-height:1.6}
+  .trace b{color:var(--ink)} .trace .hit{color:var(--crit);font-weight:600}
+  .trace .ok{color:var(--good)}
+
+  /* ---- briefing ---- */
+  .toggle{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px;gap:2px}
+  .toggle button{appearance:none;border:0;background:transparent;color:var(--muted);font-family:var(--sans);font-weight:500;
+    font-size:13px;padding:7px 15px;border-radius:7px;cursor:pointer}
+  .toggle button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+  .brief-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;
+    padding:18px;border-bottom:1px solid var(--border)}
+  .brief-head h3{font-size:18px;letter-spacing:-.01em}
+  .brief-head .facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:9px;font-size:12.5px;color:var(--muted)}
+  .brief-head .facts b{color:var(--ink);font-weight:600;font-family:var(--mono)}
+  .riskbadge{text-align:right}
+  .riskbadge .lab{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .riskbadge .val{font-family:var(--mono);font-weight:600;font-size:22px;margin-top:3px}
+  .signal{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border)}
+  .signal:last-child{border-bottom:0}
+  .signal .sev{width:8px;border-radius:4px;align-self:stretch}
+  .sev.crit{background:var(--crit)} .sev.warn{background:var(--warn)} .sev.watch{background:var(--watch)} .sev.good{background:var(--good)}
+  .signal .stitle{font-weight:600;font-size:13.5px}
+  .signal .sbody{color:var(--muted);font-size:13px;margin-top:2px}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.twocol{grid-template-columns:1fr}}
+  .listcard{padding:16px 18px}
+  .listcard h4{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin:0 0 10px;font-weight:600}
+  .talk{counter-reset:t;display:flex;flex-direction:column;gap:11px}
+  .talk li{list-style:none;display:grid;grid-template-columns:auto 1fr;gap:11px;font-size:13.5px}
+  .talk li::before{counter-increment:t;content:counter(t);font-family:var(--mono);font-size:11px;font-weight:600;
+    width:21px;height:21px;border-radius:6px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center}
+  .hist{display:flex;flex-direction:column}
+  .hist .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--border);font-size:13px}
+  .hist .row:last-child{border-bottom:0}
+  .hist .dt{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .outcome{margin:16px 18px 0;padding:13px 15px;border-radius:10px;background:var(--accent-soft);
+    border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);font-size:13.5px}
+  .outcome b{color:var(--accent-ink)}
+
+  /* ---- grading bars ---- */
+  .bars{display:flex;flex-direction:column;gap:10px}
+  .bar-row{display:grid;grid-template-columns:96px 1fr 74px;gap:12px;align-items:center;font-size:13px}
+  .bar-row .lbl{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar-track{height:9px;border-radius:5px;background:var(--surface-2);overflow:hidden;border:1px solid var(--border)}
+  .bar-fill{height:100%;border-radius:5px 0 0 5px}
+  .bar-row .num{font-family:var(--mono);font-size:12px;text-align:right;color:var(--muted)}
+  .bar-row .num .af{color:var(--crit)}
+  .scorebars{display:flex;gap:3px;align-items:flex-end;height:26px}
+  .scorebars i{width:7px;border-radius:2px 2px 0 0;background:var(--accent);opacity:.85}
+  .tagcloud{display:flex;flex-wrap:wrap;gap:7px}
+  .narr{font-size:13.5px;color:var(--ink);line-height:1.65}
+  .narr b{font-weight:600}
+  .narr .block{margin:12px 0}
+  .narr code{font-family:var(--mono);font-size:12px;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+
+  .foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--border);color:var(--faint);font-size:12px;
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .foot code{font-family:var(--mono)}
+  .note{font-size:12px;color:var(--faint);margin-top:10px}
+  a{color:var(--accent-ink)}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="brand">
+      <div class="glyph">SA</div>
+      <div>
+        <h1>Support Automation Console</h1>
+        <div class="sub">Three offline agents · triage routing · retention briefing · quality grading</div>
+      </div>
+    </div>
+    <div class="meta">
+      <span class="live"><span class="dot"></span>MOCK REASONER · OFFLINE</span>
+      <button class="themebtn" id="theme" type="button">◐ theme</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Agents">
+    <button class="tab" role="tab" id="tab-triage" aria-controls="p-triage" aria-selected="true">
+      <span class="n">#1</span> Ticket Triage <span class="cnt">4 esc</span></button>
+    <button class="tab" role="tab" id="tab-brief" aria-controls="p-brief" aria-selected="false">
+      <span class="n">#3</span> At-Risk Briefing <span class="cnt">2 accts</span></button>
+    <button class="tab" role="tab" id="tab-grade" aria-controls="p-grade" aria-selected="false">
+      <span class="n">#4</span> Weekly Grading <span class="cnt">10 graded</span></button>
+  </nav>
+
+  <!-- ================= TRIAGE ================= -->
+  <section class="panel" id="p-triage" role="tabpanel" aria-labelledby="tab-triage">
+    <p class="lede">Each ticket passes a <b>deterministic escalation gate</b> (outage / security / legal — must fire 100%)
+      <em>before</em> a swappable reasoner judges category, team and urgency. The gate wins on safety and can only ratchet
+      urgency <b>up</b>, never down.</p>
+
+    <div class="tiles">
+      <div class="tile stripe s-acc"><div class="k">Tickets in run</div><div class="v tnum">10</div><div class="d">from mock inbox</div></div>
+      <div class="tile stripe s-crit"><div class="k">Escalated by gate</div><div class="v tnum">4</div><div class="d">outage · legal ×2 · security</div></div>
+      <div class="tile stripe s-good"><div class="k">Routed by reasoner</div><div class="v tnum">6</div><div class="d">to queue, no escalation</div></div>
+      <div class="tile stripe s-warn"><div class="k">Reasoner overridden</div><div class="v tnum">4</div><div class="d">gate caught what it missed</div></div>
+    </div>
+
+    <div class="sec"><h2>Live classifier</h2><span class="hint">real ported logic — gate + keyword reasoner run in your browser</span><span class="rule"></span></div>
+    <div class="card" style="padding:16px">
+      <div class="classifier">
+        <div>
+          <div class="field">
+            <label for="c-subj">Subject</label>
+            <input id="c-subj" type="text" value="Whole dashboard is down for my team">
+          </div>
+          <div class="field">
+            <label for="c-body">Body</label>
+            <textarea id="c-body">None of us can log in and nothing loads. This is affecting our entire team right now. What is going on??</textarea>
+          </div>
+          <div class="samples" id="samples"></div>
+        </div>
+        <div class="verdict" id="verdict"><!-- filled by JS --></div>
+      </div>
+      <p class="note">This mirrors <code>deterministic_gate()</code> and <code>MockReasoner.classify()</code> from
+        <code>triage_agent.py</code> exactly. In production a <code>ClaudeReasoner</code> drop-in replaces the keyword
+        reasoner — the gate is unchanged.</p>
+    </div>
+
+    <div class="sec"><h2>Full run</h2><span class="hint">mock_tickets.json → triage_output.json</span><span class="rule"></span></div>
+    <div class="card"><div class="tscroll"><table>
+      <thead><tr><th>Ticket</th><th>Decision</th><th>Category</th><th>Routed to</th><th>Urgency</th><th>Via</th><th>Why</th></tr></thead>
+      <tbody id="triage-rows"></tbody>
+    </table></div></div>
+  </section>
+
+  <!-- ================= BRIEFING ================= -->
+  <section class="panel" id="p-brief" role="tabpanel" aria-labelledby="tab-brief" hidden>
+    <p class="lede">Pulls <b>billing · usage · tickets</b> from three mock systems, computes churn signals
+      deterministically, then synthesizes a one-page retention brief with call talking points. Money is historical
+      record only — never a promise.</p>
+    <div style="margin-bottom:18px"><div class="toggle" role="group" aria-label="Account">
+      <button id="acct-acme" aria-pressed="true">Acme Corp</button>
+      <button id="acct-globex" aria-pressed="false">Globex LLC</button>
+    </div></div>
+    <div class="card" id="brief-card"><!-- filled by JS --></div>
+  </section>
+
+  <!-- ================= GRADING ================= -->
+  <section class="panel" id="p-grade" role="tabpanel" aria-labelledby="tab-grade" hidden>
+    <p class="lede">On a weekly cadence, deterministically samples closed tickets, applies the
+      <b>ticket-quality-grading skill</b> to each (weighted 5-category rubric + auto-fail compliance gates), then
+      synthesizes a cross-ticket report — the clearest Skill-inside-Agent example.</p>
+
+    <div class="tiles">
+      <div class="tile stripe s-acc"><div class="k">Mean score</div><div class="v tnum">71.2<span style="font-size:16px">%</span></div><div class="d">sample of 10 / 12 closed</div></div>
+      <div class="tile stripe s-warn"><div class="k">Clean-pass rate</div><div class="v tnum">60<span style="font-size:16px">%</span></div><div class="d">≥80%, no auto-fail</div></div>
+      <div class="tile stripe s-crit"><div class="k">Auto-fail rate</div><div class="v tnum">20<span style="font-size:16px">%</span></div><div class="d">2 compliance breaches</div></div>
+      <div class="tile stripe s-crit"><div class="k">Agent to coach</div><div class="v" style="font-size:20px">dev</div><div class="d">mean 33% · 2 auto-fails</div></div>
+    </div>
+
+    <div class="twocol">
+      <div class="card listcard"><h4>Per-agent mean</h4><div class="bars" id="agent-bars"></div></div>
+      <div class="card listcard"><h4>Per-category mean</h4><div class="bars" id="cat-bars"></div></div>
+    </div>
+
+    <div class="sec"><h2>Per-ticket grades</h2><span class="hint">weighted score · auto-fail gates · failure tags</span><span class="rule"></span></div>
+    <div class="card"><div class="tscroll"><table>
+      <thead><tr><th>Ticket</th><th>Agent</th><th>Category</th><th>Rubric</th><th>Score</th><th>Auto-fail</th><th>Tags</th></tr></thead>
+      <tbody id="grade-rows"></tbody>
+    </table></div></div>
+
+    <div class="twocol" style="margin-top:16px">
+      <div class="card listcard"><h4>Recurring failure tags</h4><div class="tagcloud" id="tags"></div>
+        <p class="note">Reusable tags let patterns be tracked across weeks, not just scored once.</p></div>
+      <div class="card listcard"><h4>Synthesis</h4><div class="narr" id="narr"></div></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Rendered from real agent output — <code>triage_output.json</code>, <code>brief_*.md</code>, <code>weekly_report.json</code>.</span>
+    <span>Deterministic mock · swap in <code>*_claude.py</code> for live model.</span>
+  </footer>
+</div>
+
+<script>
+"use strict";
+/* ============================================================
+   DATA (verbatim from the agents' real output)
+   ============================================================ */
+const TRIAGE = [
+  {id:"T-1001",cat:"outage",team:"Engineering on-call",urg:"immediate",esc:true,src:"deterministic-gate",
+   reason:'OUTAGE trigger: matched <code>/\\b(is|are|…)?\\s*down\\b/</code> → "is down"',dis:"reasoner said 'how_to'"},
+  {id:"T-1002",cat:"billing",team:"Billing & Payments",urg:"high",esc:false,src:"reasoner",
+   reason:"keyword signals [invoice, charge, refund, double-charged] → billing"},
+  {id:"T-1003",cat:"legal",team:"Legal / Compliance",urg:"immediate",esc:true,src:"deterministic-gate",
+   reason:'LEGAL trigger: matched <code>/\\battorney\\b/</code> → "attorney"',dis:"reasoner said 'billing'"},
+  {id:"T-1004",cat:"bug",team:"Technical Support",urg:"normal",esc:false,src:"reasoner",
+   reason:"keyword signals [broken, not working] → bug"},
+  {id:"T-1005",cat:"security",team:"Security (on-call)",urg:"immediate",esc:true,src:"deterministic-gate",
+   reason:'SECURITY trigger: matched <code>/\\bbreach(ed)?\\b/</code> → "breach"',dis:"reasoner said 'how_to'"},
+  {id:"T-1006",cat:"account",team:"Account Management",urg:"normal",esc:false,src:"reasoner",
+   reason:"keyword signals [invite, member, role] → account"},
+  {id:"T-1007",cat:"account",team:"Account Management",urg:"high",esc:false,src:"reasoner",
+   reason:"keyword signals [cancel, cancel my subscription] → account"},
+  {id:"T-1008",cat:"feedback",team:"Account Management",urg:"normal",esc:false,src:"reasoner",
+   reason:"keyword signals [would be nice, suggestion] → feedback"},
+  {id:"T-1009",cat:"legal",team:"Legal / Compliance",urg:"immediate",esc:true,src:"deterministic-gate",
+   reason:'LEGAL trigger: matched <code>/\\bgdpr\\b/</code> → "gdpr"',dis:"reasoner said 'how_to'"},
+  {id:"T-1010",cat:"bug",team:"Technical Support",urg:"high",esc:false,src:"reasoner",
+   reason:"keyword signals [wrong total, wrong totals] → bug"},
+];
+
+const SAMPLES = [
+  {label:"outage",subject:"Whole dashboard is down for my team",body:"None of us can log in and nothing loads. This is affecting our entire team right now. What is going on??"},
+  {label:"legal",subject:"Refund request — but also considering legal action",body:"I've asked three times for a refund and gotten nowhere. My attorney says I may have grounds for a lawsuit if this isn't resolved."},
+  {label:"security",subject:"I think my account was hacked",body:"There's a login from a country I've never been to and some data looks changed. I'm worried this is a breach of my account."},
+  {label:"billing",subject:"Question about my invoice",body:"Hi, I think I was double-charged on my last invoice. Can you check and refund the extra charge? Not urgent."},
+  {label:"cancel",subject:"Cancel my subscription",body:"This is the third time this has broken and I'm done. Please cancel my account today. Very frustrated."},
+  {label:"how-to",subject:"How do I invite a teammate?",body:"Where in settings do I add a new member to my workspace? Can I set their role too?"},
+];
+
+const BRIEFS = {
+  acme:{name:"Acme Corp",risk:"HIGH",riskCls:"crit",
+    facts:{Renewal:"2026-11-01","Customer since":"2023-02-15",Plan:"Business Annual",MRR:"$2,400","Contract":"$28,800",Payment:"current"},
+    signals:[
+      {sev:"crit",t:"Active-seat trend",b:"27 → 12 active seats in 30d (−55.6%)."},
+      {sev:"crit",t:"Seat utilization",b:"12 of 40 purchased seats active (30%). Paying for unused capacity."},
+      {sev:"crit",t:"Recurring defect",b:"Same class of bug reported repeatedly — unresolved pain, not one-off."},
+      {sev:"warn",t:"Login volume",b:"Logins fell −58.1% (210 → 88)."},
+      {sev:"warn",t:"Feature adoption",b:"Key features not in use: api, integrations. Low product entrenchment."},
+      {sev:"warn",t:"Downgrade history",b:"Downgraded 2026-05-10: Business Annual 60 → 40 seats."},
+      {sev:"warn",t:"Support sentiment",b:"3 of 5 recent tickets negative; 3 scored CSAT ≤ 2."},
+      {sev:"watch",t:"Payment health",b:"1 failed/late payment in 90d."},
+    ],
+    history:[
+      {dt:"2026-09-02",type:"bug",s:"Reporting totals wrong again",sent:"neg",csat:2},
+      {dt:"2026-08-19",type:"bug",s:"Export keeps failing for large accounts",sent:"neg",csat:2},
+      {dt:"2026-08-05",type:"how_to",s:"Onboarding for new admins",sent:"neu",csat:4},
+      {dt:"2026-07-14",type:"billing",s:"Can we get a discount at renewal?",sent:"neu",csat:3},
+      {dt:"2026-06-28",type:"bug",s:"Integration with our CRM never worked",sent:"neg",csat:1},
+    ],
+    talk:[
+      "Lead with the usage drop — ask what changed internally (reorg? project ended? switched tools?). This is the conversation, not pricing.",
+      "Get ahead of a downgrade ask: propose a right-sized plan or a re-onboarding push to re-activate dormant seats.",
+      "Offer hands-on help configuring the unused high-value features — un-adopted features are why churn feels painless.",
+    ],
+    outcome:"<b>Save play:</b> bring an eng-fix commitment + a re-onboarding offer. Consider a goodwill gesture within policy — verify with Billing, do NOT promise a figure on the call."},
+  globex:{name:"Globex LLC",risk:"LOW",riskCls:"good",
+    facts:{Renewal:"2026-09-25","Customer since":"2025-01-20",Plan:"Pro Monthly",MRR:"$300",Contract:"$3,600",Payment:"current"},
+    signals:[
+      {sev:"good",t:"Active-seat trend",b:"7 → 8 active seats in 30d (+14.3%)."},
+      {sev:"good",t:"Seat utilization",b:"8 of 8 purchased seats active (100%). Healthy utilization."},
+    ],
+    history:[
+      {dt:"2026-08-30",type:"how_to",s:"How do I add a webhook?",sent:"pos",csat:5},
+      {dt:"2026-07-22",type:"feedback",s:"Loving the new reporting, one small request",sent:"pos",csat:5},
+    ],
+    talk:["No acute risk signals; use the call to deepen the relationship and surface expansion opportunities."],
+    outcome:"<b>Grow:</b> healthy account — explore expansion / advocacy."},
+};
+
+const GRADES = [
+  {id:"C-2011",agent:"dev",cat:"bug",sc:{resolution:3,compliance:5,communication:5,efficiency:3,proactivity:3},w:80,af:null,tags:["vague-timeline"]},
+  {id:"C-2002",agent:"dev",cat:"billing",sc:{resolution:3,compliance:1,communication:5,efficiency:5,proactivity:3},w:0,af:"unverified money claim",tags:["unverified-refund"]},
+  {id:"C-2001",agent:"priya",cat:"billing",sc:{resolution:3,compliance:5,communication:5,efficiency:5,proactivity:5},w:86,af:null,tags:[]},
+  {id:"C-2005",agent:"dev",cat:"outage",sc:{resolution:3,compliance:1,communication:5,efficiency:5,proactivity:3},w:0,af:"missed mandatory escalation",tags:["missed-escalation"]},
+  {id:"C-2004",agent:"dev",cat:"bug",sc:{resolution:1,compliance:5,communication:3,efficiency:2,proactivity:1},w:52,af:null,tags:["incomplete-resolution","templated-tone","no-next-step"]},
+  {id:"C-2012",agent:"priya",cat:"account",sc:{resolution:5,compliance:5,communication:5,efficiency:5,proactivity:5},w:100,af:null,tags:[]},
+  {id:"C-2007",agent:"sam",cat:"account",sc:{resolution:5,compliance:5,communication:5,efficiency:5,proactivity:3},w:98,af:null,tags:[]},
+  {id:"C-2010",agent:"sam",cat:"how_to",sc:{resolution:5,compliance:5,communication:5,efficiency:5,proactivity:3},w:98,af:null,tags:[]},
+  {id:"C-2009",agent:"priya",cat:"billing",sc:{resolution:5,compliance:5,communication:5,efficiency:5,proactivity:3},w:98,af:null,tags:[]},
+  {id:"C-2003",agent:"priya",cat:"bug",sc:{resolution:5,compliance:5,communication:5,efficiency:5,proactivity:5},w:100,af:null,tags:[]},
+];
+const PER_AGENT=[{k:"dev",n:4,mean:33.0,af:2},{k:"priya",n:4,mean:96.0,af:0},{k:"sam",n:2,mean:98.0,af:0}];
+const PER_CAT=[{k:"account",n:2,mean:99.0,af:0},{k:"how_to",n:1,mean:98.0,af:0},{k:"bug",n:3,mean:77.3,af:0},{k:"billing",n:3,mean:61.3,af:1},{k:"outage",n:1,mean:0.0,af:1}];
+const TAGS=[["vague-timeline",1],["unverified-refund",1],["missed-escalation",1],["incomplete-resolution",1],["templated-tone",1],["no-next-step",1]];
+
+/* ============================================================
+   PORTED TRIAGE LOGIC (faithful to triage_agent.py)
+   ============================================================ */
+const TEAMS={billing:"Billing & Payments",technical:"Technical Support",account:"Account Management",
+  onboarding:"Onboarding & Training",security:"Security (on-call)",legal:"Legal / Compliance",engineering:"Engineering on-call"};
+const ESCALATION_RULES={
+  outage:[/\boutage\b/,/\b(is|are|completely|totally)?\s*down\b/,/\bcan('|no)?t log ?in\b/,/\bnothing (works|loads)\b/,
+    /\bwon'?t load\b/,/\b(500|502|503) error\b/,/\bentire (team|company|org)\b.*\b(down|can'?t)\b/,/\bunusable\b/,/\bservice (disruption|interruption)\b/],
+  security:[/\bdata breach\b/,/\bbreach(ed)?\b/,/\bhacked\b/,/\bunauthor(ized|ised) access\b/,/\b(my|our) data (is )?(exposed|leaked)\b/,
+    /\bvulnerabilit(y|ies)\b/,/\bphishing\b/,/\bcompromised\b/,/\bleaked\b/,/\bpassword.*(stolen|leaked)\b/],
+  legal:[/\blawyer\b/,/\battorney\b/,/\blawsuit\b/,/\bsue\b/,/\bsuing\b/,/\bliable\b/,/\bliability\b/,/\bgdpr\b/,/\bccpa\b/,
+    /\bsubpoena\b/,/\barbitration\b/,/\bregulator\b/,/\bright to be forgotten\b/,/\bdata (deletion|erasure) request\b/],
+};
+const ESCALATION_TEAM={outage:"engineering",security:"security",legal:"legal"};
+function deterministicGate(text){
+  for(const cat of ["outage","security","legal"]){
+    for(const pat of ESCALATION_RULES[cat]){
+      const m=text.match(pat);
+      if(m) return {cat,team:ESCALATION_TEAM[cat],reason:`matched /${pat.source}/ → "${m[0].trim()}"`};
+    }
+  } return null;
+}
+const SIGNALS={
+  billing:["invoice","charge","charged","refund","payment","card","billing","receipt","double-charged","price","plan cost","subscription"],
+  bug:["bug","broken","error","doesn't work","does not work","not working","spinning","crash","wrong result","wrong total","wrong totals","incorrect","glitch","fails","failing","gives the wrong"],
+  account:["cancel","seat","seats","upgrade","downgrade","access","invite","member","role","permission","plan change","delete account","cancel my account","cancel my subscription","close my account"],
+  how_to:["how do i","how to","where is","can i","is it possible","tutorial","how can i","set up","configure"],
+  feedback:["feature request","would be nice","suggestion","wish","please add","feedback","roadmap"],
+};
+const TEAM_FOR_CATEGORY={billing:"billing",bug:"technical",how_to:"onboarding",account:"account",feedback:"account"};
+function mockReasoner(text){
+  const scores={},hits={};
+  for(const cat in SIGNALS){scores[cat]=0;hits[cat]=[];
+    for(const kw of SIGNALS[cat]){ if(text.includes(kw)){scores[cat]++;hits[cat].push(kw);} }}
+  let best=Object.keys(SIGNALS)[0];
+  for(const cat in SIGNALS){ if(scores[cat]>scores[best]) best=cat; }   // first-max, insertion order
+  if(scores[best]===0) best="how_to";
+  if(["cancel my account","cancel my subscription","cancel my","close my account"].some(p=>text.includes(p))) best="account";
+  let urg="normal";
+  if(["urgent","asap","immediately","today","right now","angry","furious","unacceptable","cancel"].some(w=>text.includes(w))) urg="high";
+  if(best==="bug" && ["all","everyone","entire","every"].some(w=>text.includes(w))) urg="high";
+  const matched=hits[best].length?hits[best].join(", "):"no strong signal; defaulted";
+  return {cat:best,team:TEAM_FOR_CATEGORY[best]||"account",urg,hits:hits[best],rationale:`keyword signals [${matched}] → ${best}; urgency ${urg}`};
+}
+function classify(subject,body){
+  const text=`${subject}\n${body}`.toLowerCase();
+  const gate=deterministicGate(text);
+  const r=mockReasoner(text);
+  if(gate){ return {escalated:true,source:"deterministic-gate",cat:gate.cat,team:TEAMS[gate.team],urg:"immediate",
+    gate,reasoner:r,disagree:r.cat!==gate.cat}; }
+  return {escalated:r.urg==="immediate",source:"reasoner",cat:r.cat,team:TEAMS[r.team]||r.team,urg:r.urg,gate:null,reasoner:r,disagree:false};
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const urgPill=u=>({immediate:"p-crit",high:"p-warn",normal:"p-neu",low:"p-neu"}[u]||"p-neu");
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// ---- triage table ----
+(function(){
+  const tb=document.getElementById("triage-rows");
+  for(const d of TRIAGE){
+    const tr=el("tr");
+    tr.innerHTML=`<td class="id">${d.id}</td>
+      <td>${d.esc?'<span class="pill p-crit">🚨 ESCALATE</span>':'<span class="pill p-good">route</span>'}</td>
+      <td><span class="pill p-neu">${d.cat}</span></td>
+      <td>${esc(d.team)}</td>
+      <td><span class="pill ${urgPill(d.urg)}">${d.urg}</span></td>
+      <td><span class="src ${d.src==='deterministic-gate'?'gate':''}">${d.src==='deterministic-gate'?'gate':'reasoner'}</span></td>
+      <td class="reason">${d.reason}${d.dis?`<br><span style="color:var(--warn)">⚠ ${d.dis} — gate overrode for safety</span>`:''}</td>`;
+    tb.appendChild(tr);
+  }
+})();
+
+// ---- live classifier ----
+const subjEl=document.getElementById("c-subj"), bodyEl=document.getElementById("c-body"), verdict=document.getElementById("verdict");
+function renderVerdict(){
+  const r=classify(subjEl.value,bodyEl.value);
+  let trace;
+  if(r.gate){
+    trace=`<div class="trace"><b>1 · gate</b> → <span class="hit">HIT</span> ${r.gate.cat.toUpperCase()}<br>
+      &nbsp;&nbsp;${esc(r.gate.reason)}<br>
+      <b>2 · reasoner</b> → said '${r.reasoner.cat}'${r.disagree?' <span style="color:var(--warn)">(disagrees — gate wins)</span>':''}<br>
+      <b>3 · reconcile</b> → <span class="ok">escalate immediate</span>, safety ceiling</div>`;
+  } else {
+    trace=`<div class="trace"><b>1 · gate</b> → <span class="ok">no trigger</span><br>
+      <b>2 · reasoner</b> → ${esc(r.reasoner.rationale)}<br>
+      <b>3 · reconcile</b> → route to queue</div>`;
+  }
+  verdict.innerHTML=`
+    <div class="top">
+      ${r.escalated?'<span class="pill p-crit">🚨 ESCALATE</span>':'<span class="pill p-good">route</span>'}
+      <span class="big">${esc(r.team)}</span>
+    </div>
+    <dl class="kv">
+      <dt>Category</dt><dd><span class="pill p-neu">${r.cat}</span></dd>
+      <dt>Urgency</dt><dd><span class="pill ${urgPill(r.urg)}">${r.urg}</span></dd>
+      <dt>Decided by</dt><dd><span class="src ${r.source==='deterministic-gate'?'gate':''}">${r.source}</span></dd>
+    </dl>
+    ${trace}`;
+}
+subjEl.addEventListener("input",renderVerdict);
+bodyEl.addEventListener("input",renderVerdict);
+(function(){
+  const s=document.getElementById("samples");
+  for(const smp of SAMPLES){
+    const b=el("button","chip",smp.label);
+    b.type="button";
+    b.addEventListener("click",()=>{subjEl.value=smp.subject;bodyEl.value=smp.body;renderVerdict();});
+    s.appendChild(b);
+  }
+})();
+renderVerdict();
+
+// ---- briefing ----
+const sentPill=s=>({pos:"p-good",neg:"p-crit",neu:"p-neu"}[s]||"p-neu");
+function renderBrief(key){
+  const b=BRIEFS[key], c=document.getElementById("brief-card");
+  const facts=Object.entries(b.facts).map(([k,v])=>`${k} <b>${esc(v)}</b>`).join('<span style="opacity:.4">·</span> ');
+  const signals=b.signals.map(s=>`<div class="signal"><div class="sev ${s.sev}"></div>
+    <div><div class="stitle">${esc(s.t)}</div><div class="sbody">${esc(s.b)}</div></div></div>`).join("");
+  const hist=b.history.map(h=>`<div class="row"><span class="dt">${h.dt}</span>
+    <span><span class="pill p-neu">${h.type}</span> ${esc(h.s)}</span>
+    <span><span class="pill ${sentPill(h.sent)}">${h.sent}</span> <span class="mono" style="color:var(--faint);font-size:11px">CSAT ${h.csat}</span></span></div>`).join("");
+  const talk=b.talk.map(t=>`<li>${esc(t)}</li>`).join("");
+  c.innerHTML=`
+    <div class="brief-head">
+      <div><h3>${esc(b.name)}</h3><div class="facts">${facts}</div></div>
+      <div class="riskbadge"><div class="lab">Overall churn risk</div>
+        <div class="val" style="color:var(--${b.riskCls})">${b.risk}</div></div>
+    </div>
+    <div>${signals}</div>
+    <div class="twocol" style="padding:16px;gap:16px">
+      <div class="listcard" style="padding:0"><h4>Talking points for the call</h4><ol class="talk">${talk}</ol></div>
+      <div class="listcard" style="padding:0"><h4>Support history (recent)</h4><div class="hist">${hist}</div></div>
+    </div>
+    <div class="outcome">${b.outcome}</div>
+    <p class="note" style="padding:0 18px 16px">Generated from billing + usage + tickets. Money figures are historical record only; verify any offer against current policy before the call.</p>`;
+}
+document.getElementById("acct-acme").addEventListener("click",e=>{setAcct("acme",e.target)});
+document.getElementById("acct-globex").addEventListener("click",e=>{setAcct("globex",e.target)});
+function setAcct(key,btn){
+  document.querySelectorAll(".toggle button").forEach(b=>b.setAttribute("aria-pressed","false"));
+  btn.setAttribute("aria-pressed","true"); renderBrief(key);
+}
+renderBrief("acme");
+
+// ---- grading ----
+const barColor=m=>m>=80?"var(--good)":m>=50?"var(--warn)":"var(--crit)";
+function renderBars(id,rows){
+  const host=document.getElementById(id);
+  for(const r of rows){
+    const row=el("div","bar-row");
+    row.innerHTML=`<span class="lbl">${esc(r.k)}</span>
+      <span class="bar-track"><span class="bar-fill" style="width:${Math.max(r.mean,1.5)}%;background:${barColor(r.mean)}"></span></span>
+      <span class="num tnum">${r.mean.toFixed(0)}% <span style="color:var(--faint)">·${r.n}</span>${r.af?` <span class="af">⊘${r.af}</span>`:''}</span>`;
+    host.appendChild(row);
+  }
+}
+renderBars("agent-bars",PER_AGENT);
+renderBars("cat-bars",PER_CAT);
+(function(){
+  const tb=document.getElementById("grade-rows");
+  for(const g of GRADES){
+    const spark=Object.values(g.sc).map(v=>`<i style="height:${v/5*100}%" title="${v}/5"></i>`).join("");
+    const tags=g.tags.length?g.tags.map(t=>`<span class="pill p-watch">${t}</span>`).join(" "):'<span style="color:var(--faint)">—</span>';
+    const scoreCls=g.af?"p-crit":g.w>=80?"p-good":"p-warn";
+    const tr=el("tr");
+    tr.innerHTML=`<td class="id">${g.id}</td><td>${g.agent}</td><td><span class="pill p-neu">${g.cat}</span></td>
+      <td><span class="scorebars">${spark}</span></td>
+      <td><span class="pill ${scoreCls} tnum">${g.w}%</span></td>
+      <td>${g.af?`<span class="pill p-crit">${esc(g.af)}</span>`:'<span style="color:var(--faint)">—</span>'}</td>
+      <td>${tags}</td>`;
+    tb.appendChild(tr);
+  }
+})();
+(function(){
+  const host=document.getElementById("tags");
+  for(const [t,n] of TAGS){ host.appendChild(el("span","pill p-watch",`${t} <b style="opacity:.7">×${n}</b>`)); }
+})();
+document.getElementById("narr").innerHTML=`
+  <div class="block"><b>2 auto-fails</b> this week (compliance-critical, score 0%): <code>C-2002</code> unverified money claim · <code>C-2005</code> missed mandatory escalation.</div>
+  <div class="block"><b>Weakest category:</b> <code>outage</code> averaged 0% — a single missed-escalation dragged it to the floor.</div>
+  <div class="block"><b>Coach dev:</b> mean 33% over 4 tickets, both auto-fails. priya (96%) and sam (98%) are steady.</div>
+  <div class="block"><b>Next week:</b> zero-tolerance refresh on the auto-fail rules, and target <code>vague-timeline</code> in standup with the specific examples.</div>`;
+
+/* ---- tabs ---- */
+const tabs=[["tab-triage","p-triage"],["tab-brief","p-brief"],["tab-grade","p-grade"]];
+tabs.forEach(([t,p])=>{
+  document.getElementById(t).addEventListener("click",()=>{
+    tabs.forEach(([tt,pp])=>{
+      const on=tt===t;
+      document.getElementById(tt).setAttribute("aria-selected",String(on));
+      document.getElementById(pp).hidden=!on;
+    });
+  });
+});
+
+/* ---- theme toggle ---- */
+document.getElementById("theme").addEventListener("click",()=>{
+  const cur=document.documentElement.getAttribute("data-theme");
+  const dark=window.matchMedia("(prefers-color-scheme:dark)").matches;
+  const next=cur? (cur==="dark"?"light":"dark") : (dark?"light":"dark");
+  document.documentElement.setAttribute("data-theme",next);
+});
+</script>

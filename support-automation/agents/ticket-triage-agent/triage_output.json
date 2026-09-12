@@ -1,0 +1,122 @@
+[
+  {
+    "ticket_id": "T-1001",
+    "category": "outage",
+    "team": "engineering",
+    "team_name": "Engineering on-call",
+    "urgency": "immediate",
+    "escalated": true,
+    "escalation_reason": "OUTAGE trigger: matched /\\b(is|are|completely|totally)?\\s*down\\b/ -> \"is down\"",
+    "rationale": "Deterministic escalation gate fired -> route to Engineering on-call immediately. (reasoner independently said 'how_to'; deterministic gate overrides for safety)",
+    "source": "deterministic-gate",
+    "decided_at": "2026-09-12T06:08:30.152018+00:00"
+  },
+  {
+    "ticket_id": "T-1002",
+    "category": "billing",
+    "team": "billing",
+    "team_name": "Billing & Payments",
+    "urgency": "high",
+    "escalated": false,
+    "escalation_reason": null,
+    "rationale": "keyword signals [invoice, charge, charged, refund, double-charged] -> billing; urgency high",
+    "source": "reasoner",
+    "decided_at": "2026-09-12T06:08:30.152997+00:00"
+  },
+  {
+    "ticket_id": "T-1003",
+    "category": "legal",
+    "team": "legal",
+    "team_name": "Legal / Compliance",
+    "urgency": "immediate",
+    "escalated": true,
+    "escalation_reason": "LEGAL trigger: matched /\\battorney\\b/ -> \"attorney\"",
+    "rationale": "Deterministic escalation gate fired -> route to Legal / Compliance immediately. (reasoner independently said 'billing'; deterministic gate overrides for safety)",
+    "source": "deterministic-gate",
+    "decided_at": "2026-09-12T06:08:30.153098+00:00"
+  },
+  {
+    "ticket_id": "T-1004",
+    "category": "bug",
+    "team": "technical",
+    "team_name": "Technical Support",
+    "urgency": "normal",
+    "escalated": false,
+    "escalation_reason": null,
+    "rationale": "keyword signals [broken, not working] -> bug; urgency normal",
+    "source": "reasoner",
+    "decided_at": "2026-09-12T06:08:30.153177+00:00"
+  },
+  {
+    "ticket_id": "T-1005",
+    "category": "security",
+    "team": "security",
+    "team_name": "Security (on-call)",
+    "urgency": "immediate",
+    "escalated": true,
+    "escalation_reason": "SECURITY trigger: matched /\\bbreach(ed)?\\b/ -> \"breach\"",
+    "rationale": "Deterministic escalation gate fired -> route to Security (on-call) immediately. (reasoner independently said 'how_to'; deterministic gate overrides for safety)",
+    "source": "deterministic-gate",
+    "decided_at": "2026-09-12T06:08:30.153221+00:00"
+  },
+  {
+    "ticket_id": "T-1006",
+    "category": "account",
+    "team": "account",
+    "team_name": "Account Management",
+    "urgency": "normal",
+    "escalated": false,
+    "escalation_reason": null,
+    "rationale": "keyword signals [invite, member, role] -> account; urgency normal",
+    "source": "reasoner",
+    "decided_at": "2026-09-12T06:08:30.153280+00:00"
+  },
+  {
+    "ticket_id": "T-1007",
+    "category": "account",
+    "team": "account",
+    "team_name": "Account Management",
+    "urgency": "high",
+    "escalated": false,
+    "escalation_reason": null,
+    "rationale": "keyword signals [cancel, cancel my account, cancel my subscription] -> account; urgency high",
+    "source": "reasoner",
+    "decided_at": "2026-09-12T06:08:30.153365+00:00"
+  },
+  {
+    "ticket_id": "T-1008",
+    "category": "feedback",
+    "team": "account",
+    "team_name": "Account Management",
+    "urgency": "normal",
+    "escalated": false,
+    "escalation_reason": null,
+    "rationale": "keyword signals [would be nice, suggestion] -> feedback; urgency normal",
+    "source": "reasoner",
+    "decided_at": "2026-09-12T06:08:30.153431+00:00"
+  },
+  {
+    "ticket_id": "T-1009",
+    "category": "legal",
+    "team": "legal",
+    "team_name": "Legal / Compliance",
+    "urgency": "immediate",
+    "escalated": true,
+    "escalation_reason": "LEGAL trigger: matched /\\bgdpr\\b/ -> \"gdpr\"",
+    "rationale": "Deterministic escalation gate fired -> route to Legal / Compliance immediately. (reasoner independently said 'how_to'; deterministic gate overrides for safety)",
+    "source": "deterministic-gate",
+    "decided_at": "2026-09-12T06:08:30.153488+00:00"
+  },
+  {
+    "ticket_id": "T-1010",
+    "category": "bug",
+    "team": "technical",
+    "team_name": "Technical Support",
+    "urgency": "high",
+    "escalated": false,
+    "escalation_reason": null,
+    "rationale": "keyword signals [wrong total, wrong totals] -> bug; urgency high",
+    "source": "reasoner",
+    "decided_at": "2026-09-12T06:08:30.153568+00:00"
+  }
+]
