@@ -1,0 +1,44 @@
+{
+  "acme-corp": {
+    "account_id": "acme-corp",
+    "active_seats_last_30d": 12,
+    "active_seats_prev_30d": 27,
+    "logins_last_30d": 88,
+    "logins_prev_30d": 210,
+    "feature_adoption": {
+      "core_dashboard": "declining",
+      "api": "unused_last_60d",
+      "integrations": "never_configured",
+      "reporting": "declining"
+    },
+    "last_active": "2026-09-08",
+    "monthly_active_trend": [
+      {"month": "2026-05", "active_seats": 31},
+      {"month": "2026-06", "active_seats": 29},
+      {"month": "2026-07", "active_seats": 27},
+      {"month": "2026-08", "active_seats": 18},
+      {"month": "2026-09", "active_seats": 12}
+    ]
+  },
+  "globex-llc": {
+    "account_id": "globex-llc",
+    "active_seats_last_30d": 8,
+    "active_seats_prev_30d": 7,
+    "logins_last_30d": 240,
+    "logins_prev_30d": 220,
+    "feature_adoption": {
+      "core_dashboard": "heavy",
+      "api": "heavy",
+      "integrations": "configured",
+      "reporting": "growing"
+    },
+    "last_active": "2026-09-11",
+    "monthly_active_trend": [
+      {"month": "2026-05", "active_seats": 6},
+      {"month": "2026-06", "active_seats": 7},
+      {"month": "2026-07", "active_seats": 7},
+      {"month": "2026-08", "active_seats": 8},
+      {"month": "2026-09", "active_seats": 8}
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Environment / secrets — never commit your API key
+.env
+*.key
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Note: the *committed* sample outputs (brief_*.md, triage_output.json,
+# weekly_report.*) are intentionally kept as evidence that the code runs.
+# If you prefer to treat them as regenerable artifacts instead, uncomment:
+# agents/at-risk-briefing-agent/brief_*.md
+# agents/ticket-triage-agent/triage_output.json
+# agents/weekly-grading-agent/weekly_report.*

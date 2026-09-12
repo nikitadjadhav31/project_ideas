@@ -1,0 +1,243 @@
+{
+  "generated_at": "2026-09-12T06:08:33.960742+00:00",
+  "sample_size": 10,
+  "pool_size": 12,
+  "pass_rate": 60.0,
+  "auto_fail_rate": 20.0,
+  "mean_score": 71.2,
+  "grades": [
+    {
+      "ticket_id": "C-2011",
+      "assigned_agent": "dev",
+      "category": "bug",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 3,
+        "compliance": 5,
+        "communication": 5,
+        "efficiency": 3,
+        "proactivity": 3
+      },
+      "weighted_score": 80,
+      "failure_tags": [
+        "vague-timeline"
+      ],
+      "coaching_note": "Tone is not a substitute for a fix \u2014 address the actual problem or ask the one question needed to."
+    },
+    {
+      "ticket_id": "C-2002",
+      "assigned_agent": "dev",
+      "category": "billing",
+      "auto_fail": "unverified_money_claim",
+      "scores": {
+        "resolution": 3,
+        "compliance": 1,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 3
+      },
+      "weighted_score": 0,
+      "failure_tags": [
+        "unverified-refund"
+      ],
+      "coaching_note": "Never state a refund/credit figure before verifying against the charge and current policy; acknowledge and follow up with the exact amount."
+    },
+    {
+      "ticket_id": "C-2001",
+      "assigned_agent": "priya",
+      "category": "billing",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 3,
+        "compliance": 5,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 5
+      },
+      "weighted_score": 86,
+      "failure_tags": [],
+      "coaching_note": "Tone is not a substitute for a fix \u2014 address the actual problem or ask the one question needed to."
+    },
+    {
+      "ticket_id": "C-2005",
+      "assigned_agent": "dev",
+      "category": "outage",
+      "auto_fail": "missed_mandatory_escalation",
+      "scores": {
+        "resolution": 3,
+        "compliance": 1,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 3
+      },
+      "weighted_score": 0,
+      "failure_tags": [
+        "missed-escalation"
+      ],
+      "coaching_note": "An outage/security/legal trigger was present \u2014 escalate immediately instead of trying to resolve in the reply."
+    },
+    {
+      "ticket_id": "C-2004",
+      "assigned_agent": "dev",
+      "category": "bug",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 1,
+        "compliance": 5,
+        "communication": 3,
+        "efficiency": 2,
+        "proactivity": 1
+      },
+      "weighted_score": 52,
+      "failure_tags": [
+        "incomplete-resolution",
+        "templated-tone",
+        "no-next-step"
+      ],
+      "coaching_note": "Tone is not a substitute for a fix \u2014 address the actual problem or ask the one question needed to."
+    },
+    {
+      "ticket_id": "C-2012",
+      "assigned_agent": "priya",
+      "category": "account",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 5,
+        "compliance": 5,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 5
+      },
+      "weighted_score": 100,
+      "failure_tags": [],
+      "coaching_note": "Tone is not a substitute for a fix \u2014 address the actual problem or ask the one question needed to."
+    },
+    {
+      "ticket_id": "C-2007",
+      "assigned_agent": "sam",
+      "category": "account",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 5,
+        "compliance": 5,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 3
+      },
+      "weighted_score": 98,
+      "failure_tags": [],
+      "coaching_note": "Anticipate the likely follow-up to prevent a second ticket."
+    },
+    {
+      "ticket_id": "C-2010",
+      "assigned_agent": "sam",
+      "category": "how_to",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 5,
+        "compliance": 5,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 3
+      },
+      "weighted_score": 98,
+      "failure_tags": [],
+      "coaching_note": "Anticipate the likely follow-up to prevent a second ticket."
+    },
+    {
+      "ticket_id": "C-2009",
+      "assigned_agent": "priya",
+      "category": "billing",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 5,
+        "compliance": 5,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 3
+      },
+      "weighted_score": 98,
+      "failure_tags": [],
+      "coaching_note": "Anticipate the likely follow-up to prevent a second ticket."
+    },
+    {
+      "ticket_id": "C-2003",
+      "assigned_agent": "priya",
+      "category": "bug",
+      "auto_fail": null,
+      "scores": {
+        "resolution": 5,
+        "compliance": 5,
+        "communication": 5,
+        "efficiency": 5,
+        "proactivity": 5
+      },
+      "weighted_score": 100,
+      "failure_tags": [],
+      "coaching_note": "Tone is not a substitute for a fix \u2014 address the actual problem or ask the one question needed to."
+    }
+  ],
+  "tag_frequencies": {
+    "vague-timeline": 1,
+    "unverified-refund": 1,
+    "missed-escalation": 1,
+    "incomplete-resolution": 1,
+    "templated-tone": 1,
+    "no-next-step": 1
+  },
+  "per_agent": {
+    "dev": {
+      "n": 4,
+      "mean": 33.0,
+      "auto_fails": 2,
+      "tags": {
+        "vague-timeline": 1,
+        "unverified-refund": 1,
+        "missed-escalation": 1,
+        "incomplete-resolution": 1,
+        "templated-tone": 1,
+        "no-next-step": 1
+      }
+    },
+    "priya": {
+      "n": 4,
+      "mean": 96.0,
+      "auto_fails": 0,
+      "tags": {}
+    },
+    "sam": {
+      "n": 2,
+      "mean": 98.0,
+      "auto_fails": 0,
+      "tags": {}
+    }
+  },
+  "per_category": {
+    "bug": {
+      "n": 3,
+      "mean": 77.3,
+      "auto_fails": 0
+    },
+    "billing": {
+      "n": 3,
+      "mean": 61.3,
+      "auto_fails": 1
+    },
+    "outage": {
+      "n": 1,
+      "mean": 0.0,
+      "auto_fails": 1
+    },
+    "account": {
+      "n": 2,
+      "mean": 99.0,
+      "auto_fails": 0
+    },
+    "how_to": {
+      "n": 1,
+      "mean": 98.0,
+      "auto_fails": 0
+    }
+  },
+  "narrative": "Graded a sample of 10 closed tickets. Mean quality score **71.2%**, clean-pass rate **60%** (>=80%, no auto-fail, no flagged failure), **2** auto-fail(s).\n\n**Auto-fails this week (compliance-critical, score 0%):**\n- `C-2002` (dev) \u2014 unverified money claim.\n- `C-2005` (dev) \u2014 missed mandatory escalation.\n\n**Recurring failure patterns:**\n- **vague-timeline** \u2014 1 of 10 tickets (10%). 'Shortly'/'ASAP' instead of a specific time.\n- **unverified-refund** \u2014 1 of 10 tickets (10%). Refund/credit figures stated without verifying policy.\n- **missed-escalation** \u2014 1 of 10 tickets (10%). Emergencies answered instead of escalated.\n\n**Agents to coach (below sample mean or with auto-fails):**\n- **dev**: mean 33.0% over 4 ticket(s), 2 auto-fail(s) \u2014 most common issue: vague-timeline.\n\n**Weakest category:** `outage` tickets averaged 0.0%, below the 71.2% sample mean.\n\n**Recommended focus for next week:**\n1. Zero-tolerance refresh on the auto-fail rules (money verification + mandatory escalation) \u2014 these are the highest-cost failures.\n2. Target the top recurring pattern (**vague-timeline**) in the next team standup with the specific examples above."
+}

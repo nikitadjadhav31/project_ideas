@@ -1,0 +1,62 @@
+[
+  {
+    "id": "C-2001", "closed_at": "2026-09-08", "category": "billing", "assigned_agent": "priya",
+    "customer_message": "I was charged twice this month, can I get that fixed?",
+    "agent_reply": "I'm sorry about the double charge. I'm checking your billing records against our policy now and I'll follow up by 3pm ET today with the exact amount and timeline. In the meantime I've flagged the duplicate so it won't recur."
+  },
+  {
+    "id": "C-2002", "closed_at": "2026-09-08", "category": "billing", "assigned_agent": "dev",
+    "customer_message": "Was I overcharged last month?",
+    "agent_reply": "Yes! I've confirmed a $150 refund, it'll be back in 3-5 days. Cheers!"
+  },
+  {
+    "id": "C-2003", "closed_at": "2026-09-07", "category": "bug", "assigned_agent": "priya",
+    "customer_message": "The CSV export only gives me the first 500 rows.",
+    "agent_reply": "Thanks for flagging this - I reproduced it and it's a real bug, I've escalated it to engineering. In the meantime here's a workaround: go to Settings > Data > Legacy Export for the full file. I'll update you with an ETA by tomorrow."
+  },
+  {
+    "id": "C-2004", "closed_at": "2026-09-07", "category": "bug", "assigned_agent": "dev",
+    "customer_message": "Reports show the wrong totals every time.",
+    "agent_reply": "So sorry to hear that! We really appreciate your patience and value you as a customer. Have a wonderful day!"
+  },
+  {
+    "id": "C-2005", "closed_at": "2026-09-06", "category": "outage", "assigned_agent": "dev",
+    "customer_message": "Our whole team can't log in, the app won't load at all.",
+    "agent_reply": "Have you tried clearing your browser cache and cookies? That usually fixes login problems. Let me know if that helps."
+  },
+  {
+    "id": "C-2006", "closed_at": "2026-09-06", "category": "how_to", "assigned_agent": "sam",
+    "customer_message": "How do I invite a teammate and set their role?",
+    "agent_reply": "Happy to help! Go to Settings > Members > Invite, enter their email, and pick a role from the dropdown before sending. They'll get an email to join. Anything else I can help with?"
+  },
+  {
+    "id": "C-2007", "closed_at": "2026-09-05", "category": "account", "assigned_agent": "sam",
+    "customer_message": "I need to downgrade my plan before renewal.",
+    "agent_reply": "Sure - you can change your plan under Settings > Billing > Plan. Pick the new tier and it takes effect at your next renewal date, so you won't be double-billed. Want me to walk you through which tier fits your usage?"
+  },
+  {
+    "id": "C-2008", "closed_at": "2026-09-05", "category": "complaint", "assigned_agent": "dev",
+    "customer_message": "This keeps breaking and your support is useless.",
+    "agent_reply": "Calm down. As I already told you, that's not our policy. You probably clicked the wrong thing."
+  },
+  {
+    "id": "C-2009", "closed_at": "2026-09-04", "category": "billing", "assigned_agent": "priya",
+    "customer_message": "Can I get a receipt for last month's invoice?",
+    "agent_reply": "Absolutely - you can download it under Settings > Billing > Invoices, then click the download icon next to the month you need. Let me know if you'd like it emailed instead."
+  },
+  {
+    "id": "C-2010", "closed_at": "2026-09-04", "category": "how_to", "assigned_agent": "sam",
+    "customer_message": "Where do I find my API key?",
+    "agent_reply": "You'll find it under Settings > Developer > API Keys. Click 'Reveal' to see it or 'Generate new key' to rotate it. Keep it secret - treat it like a password."
+  },
+  {
+    "id": "C-2011", "closed_at": "2026-09-03", "category": "bug", "assigned_agent": "dev",
+    "customer_message": "The dashboard is loading really slowly for me.",
+    "agent_reply": "Sorry about that. Someone will look into it shortly."
+  },
+  {
+    "id": "C-2012", "closed_at": "2026-09-03", "category": "account", "assigned_agent": "priya",
+    "customer_message": "How do I add more seats to my plan?",
+    "agent_reply": "You can add seats under Settings > Billing > Seats - just increase the count and confirm. The prorated change shows on your next invoice. I'll follow up if you'd like help right-sizing the number."
+  }
+]
