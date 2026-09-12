@@ -25,6 +25,8 @@ A one-page UI over all three agents, built from their real output:
 The console *displays* real output for all three and *re-runs* the triage logic live; the
 briefing and grading agents run offline via the Python below. Source: [`docs/ui/console.html`](docs/ui/console.html).
 
+**One-page summary:** [`docs/support-automation-agents.pdf`](docs/support-automation-agents.pdf) — what each agent does, how it decides, and its run command at a glance.
+
 ## The verdicts
 
 | # | Function | Verdict |
