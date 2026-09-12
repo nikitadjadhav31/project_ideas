@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HR Portal — Onboarding dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="4" width="14" height="17" rx="2.5"/>
+            <path d="M9 4a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4v1H9V4z"/>
+            <path d="M9 11h6M9 15h4"/>
+          </svg>
+        </div>
+        <span class="brand-name">HR Portal</span>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item active" href="dashboard.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+          Dashboard
+        </a>
+        <a class="nav-item" href="intake.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+          Intake form
+        </a>
+        <a class="nav-item" href="approvals.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 3h6l2-3h4"/><path d="M5 5h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>
+          Approvals
+        </a>
+        <a class="nav-item" href="audit-log.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>
+          Audit log
+        </a>
+      </nav>
+
+      <div class="user-card">
+        <div class="avatar">SK</div>
+        <div>
+          <div class="user-name">Suraj Khanna</div>
+          <div class="user-role">HR Manager</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="panel">
+        <h1 class="page-title">Onboarding dashboard</h1>
+        <p class="page-subtitle">Access provisioning status across active hires.</p>
+        <hr class="header-divider" />
+
+        <!-- Stat cards -->
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-label">Active hires</div>
+            <div class="stat-value">2</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Tasks awaiting approval</div>
+            <div class="stat-value warn">2</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Escalated</div>
+            <div class="stat-value danger">1</div>
+          </div>
+        </div>
+
+        <!-- Hire card: Arjun Mehta -->
+        <div class="hire-card">
+          <div class="hire-head">
+            <div>
+              <div class="hire-name">Arjun Mehta</div>
+              <div class="hire-meta">Engineering · Starts Mon</div>
+            </div>
+            <div class="readiness">
+              <div class="readiness-top"><span>Readiness</span><b>33%</b></div>
+              <div class="bar"><span style="width:33%"></span></div>
+            </div>
+          </div>
+
+          <table class="task-table">
+            <thead>
+              <tr>
+                <th>Tool</th><th>Scope</th><th>Approver</th><th>Status</th><th>Last nudge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tool">GitHub</td>
+                <td>eng team</td>
+                <td class="dim">—</td>
+                <td><span class="pill provisioned"><span class="dot"></span>Provisioned</span></td>
+                <td class="dim">—</td>
+              </tr>
+              <tr>
+                <td class="tool">GroundCover</td>
+                <td>standard</td>
+                <td>Priya Nair</td>
+                <td><span class="pill await"><span class="dot"></span>Awaiting approval</span></td>
+                <td>2 nudges</td>
+              </tr>
+              <tr>
+                <td class="tool">Databricks</td>
+                <td>prod write</td>
+                <td>Rohan Desai</td>
+                <td><span class="pill escalated"><span class="dot"></span>Escalated</span></td>
+                <td>3 nudges, escalated</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Hire card: Meera Iyer -->
+        <div class="hire-card">
+          <div class="hire-head">
+            <div>
+              <div class="hire-name">Meera Iyer</div>
+              <div class="hire-meta">Product · Starts Wed</div>
+            </div>
+            <div class="readiness">
+              <div class="readiness-top"><span>Readiness</span><b>33%</b></div>
+              <div class="bar"><span style="width:33%"></span></div>
+            </div>
+          </div>
+
+          <table class="task-table">
+            <thead>
+              <tr>
+                <th>Tool</th><th>Scope</th><th>Approver</th><th>Status</th><th>Last nudge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tool">Jira</td>
+                <td>product-pms</td>
+                <td class="dim">—</td>
+                <td><span class="pill provisioned"><span class="dot"></span>Provisioned</span></td>
+                <td class="dim">—</td>
+              </tr>
+              <tr>
+                <td class="tool">Figma</td>
+                <td>editor seat</td>
+                <td>Kavya Rao</td>
+                <td><span class="pill await"><span class="dot"></span>Awaiting approval</span></td>
+                <td>1 nudge</td>
+              </tr>
+              <tr>
+                <td class="tool">Databricks</td>
+                <td>read (common)</td>
+                <td>Rohan Desai</td>
+                <td><span class="pill pending"><span class="dot"></span>Pending</span></td>
+                <td class="dim">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

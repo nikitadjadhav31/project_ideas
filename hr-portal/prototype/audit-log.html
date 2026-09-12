@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HR Portal — Audit log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="4" width="14" height="17" rx="2.5"/>
+            <path d="M9 4a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4v1H9V4z"/>
+            <path d="M9 11h6M9 15h4"/>
+          </svg>
+        </div>
+        <span class="brand-name">HR Portal</span>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item" href="dashboard.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+          Dashboard
+        </a>
+        <a class="nav-item" href="intake.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+          Intake form
+        </a>
+        <a class="nav-item" href="approvals.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 3h6l2-3h4"/><path d="M5 5h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>
+          Approvals
+        </a>
+        <a class="nav-item active" href="audit-log.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>
+          Audit log
+        </a>
+      </nav>
+
+      <div class="user-card">
+        <div class="avatar">SK</div>
+        <div>
+          <div class="user-name">Suraj Khanna</div>
+          <div class="user-role">HR Manager</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="panel">
+        <h1 class="page-title">Audit log</h1>
+        <p class="page-subtitle">Every request, nudge, approval and refusal.</p>
+        <hr class="header-divider" />
+
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th><th>Actor</th><th>Action</th><th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="refused">
+              <td class="ts">Sep 12 · 15:05</td>
+              <td class="actor">Priya Nair</td>
+              <td class="action">Refused</td>
+              <td>Reply attempted to approve Databricks · prod write for Arjun Mehta — not authorised, sender does not own this item.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 14:40</td>
+              <td class="actor">Follow-up agent <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Escalated</td>
+              <td>Databricks · prod write for Arjun Mehta escalated to Rohan Desai after nudge 3.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 12:16</td>
+              <td class="actor">Provisioner <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Access granted</td>
+              <td>GroundCover · standard provisioned for Arjun Mehta.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 12:15</td>
+              <td class="actor">Priya Nair</td>
+              <td class="action">Approved</td>
+              <td>Reply "approved for GroundCover" — GroundCover · standard approved for Arjun Mehta.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 11:30</td>
+              <td class="actor">Follow-up agent <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Nudge sent</td>
+              <td>Reminder to Priya Nair for GroundCover · standard (nudge 2 of 3).</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 10:48</td>
+              <td class="actor">Follow-up agent <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Nudge sent</td>
+              <td>Reminder to Rohan Desai for Databricks · prod write (nudge 1 of 3).</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 09:10</td>
+              <td class="actor">Follow-up agent <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Nudge sent</td>
+              <td>Reminder to Priya Nair for GroundCover · standard (nudge 1 of 3).</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 09:06</td>
+              <td class="actor">Provisioner <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Fallback to ticket</td>
+              <td>Databricks auto-grant unavailable after 3 attempts — routed to approver Rohan Desai.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 09:04</td>
+              <td class="actor">Provisioner <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Retry</td>
+              <td>Databricks provisioning retried after API error (attempt 2 of 3).</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 09:03</td>
+              <td class="actor">Provisioner <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">API error</td>
+              <td>Databricks API returned 503 — automated provisioning failed for prod write.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 09:03</td>
+              <td class="actor">Provisioner <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Access granted</td>
+              <td>GitHub · eng team provisioned automatically for Arjun Mehta.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 09:02</td>
+              <td class="actor">Orchestrator <span class="tag-agent"><span class="dot"></span>agent</span></td>
+              <td class="action">Tasks fanned out</td>
+              <td>3 access tasks created for Arjun Mehta and routed to owners.</td>
+            </tr>
+            <tr>
+              <td class="ts">Sep 12 · 09:02</td>
+              <td class="actor">Suraj Khanna</td>
+              <td class="action">Hire created</td>
+              <td>New hire Arjun Mehta (Engineering) submitted via intake form, start Mon.</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

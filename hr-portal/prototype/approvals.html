@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HR Portal — Approvals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="4" width="14" height="17" rx="2.5"/>
+            <path d="M9 4a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 4v1H9V4z"/>
+            <path d="M9 11h6M9 15h4"/>
+          </svg>
+        </div>
+        <span class="brand-name">HR Portal</span>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item" href="dashboard.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+          Dashboard
+        </a>
+        <a class="nav-item" href="intake.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+          Intake form
+        </a>
+        <a class="nav-item active" href="approvals.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 3h6l2-3h4"/><path d="M5 5h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>
+          Approvals
+        </a>
+        <a class="nav-item" href="audit-log.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>
+          Audit log
+        </a>
+      </nav>
+
+      <div class="user-card">
+        <div class="avatar">SK</div>
+        <div>
+          <div class="user-name">Suraj Khanna</div>
+          <div class="user-role">HR Manager</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <div class="panel">
+        <h1 class="page-title">Approvals</h1>
+        <p class="page-subtitle">Items waiting on you, grouped into one request.</p>
+        <hr class="header-divider" />
+
+        <!-- Approver request: Rohan Desai -->
+        <div class="approval-card">
+          <div class="approval-head">
+            <div class="who">
+              <div class="avatar">RD</div>
+              <div>
+                <div class="name">Rohan Desai</div>
+                <div class="email">rohan.desai@company.com</div>
+              </div>
+            </div>
+            <div class="batch-count">2 items batched</div>
+          </div>
+
+          <div class="item-row">
+            <div>
+              <div class="item-tool">Databricks</div>
+              <div class="item-scope">prod write</div>
+            </div>
+            <div class="item-for"><span class="lbl">For hire</span>Arjun Mehta</div>
+            <div class="item-flags">
+              <span class="tag-manual"><span class="dot"></span>Needs manual approval</span>
+              <span class="step-indicator">Step 1 of 2</span>
+            </div>
+            <div class="item-wait">Waiting 3 days</div>
+          </div>
+
+          <div class="item-row">
+            <div>
+              <div class="item-tool">Databricks</div>
+              <div class="item-scope">read (common)</div>
+            </div>
+            <div class="item-for"><span class="lbl">For hire</span>Meera Iyer</div>
+            <div class="item-flags"></div>
+            <div class="item-wait">Waiting 1 day</div>
+          </div>
+        </div>
+
+        <!-- Approver request: Priya Nair (active reply) -->
+        <div class="approval-card">
+          <div class="approval-head">
+            <div class="who">
+              <div class="avatar">PN</div>
+              <div>
+                <div class="name">Priya Nair</div>
+                <div class="email">priya.nair@company.com</div>
+              </div>
+            </div>
+            <div class="batch-count">1 item batched</div>
+          </div>
+
+          <div class="item-row">
+            <div>
+              <div class="item-tool">GroundCover</div>
+              <div class="item-scope">standard</div>
+            </div>
+            <div class="item-for"><span class="lbl">For hire</span>Arjun Mehta</div>
+            <div class="item-flags"></div>
+            <div class="item-wait">Waiting 2 days</div>
+          </div>
+
+          <!-- Reply box -->
+          <div class="reply-box">
+            <label for="reply">Reply as approver</label>
+            <textarea id="reply" placeholder="e.g. approved for GroundCover"></textarea>
+            <div class="actions-right">
+              <button class="btn-primary">Send reply</button>
+            </div>
+          </div>
+
+          <!-- Interpretation of last reply -->
+          <div class="result-strip">
+            <div class="result-title">Last reply interpreted as</div>
+            <div class="result-intent">Detected intent: <b>Approve</b> · applied to 1 item, 1 item skipped</div>
+            <div class="result-cols">
+              <div class="result-item ok">
+                <div class="ri-head"><span class="pill provisioned"><span class="dot"></span>Approved</span> GroundCover</div>
+                <div class="ri-scope">standard · for Arjun Mehta</div>
+                <div class="ri-note">Provisioning started.</div>
+              </div>
+              <div class="result-item deny">
+                <div class="ri-head"><span class="pill escalated"><span class="dot"></span>Skipped</span> Databricks</div>
+                <div class="ri-scope">prod write · for Arjun Mehta</div>
+                <div class="ri-note">Not authorised — you don't own this item.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Approver request: Kavya Rao -->
+        <div class="approval-card">
+          <div class="approval-head">
+            <div class="who">
+              <div class="avatar">KR</div>
+              <div>
+                <div class="name">Kavya Rao</div>
+                <div class="email">kavya.rao@company.com</div>
+              </div>
+            </div>
+            <div class="batch-count">1 item batched</div>
+          </div>
+
+          <div class="item-row">
+            <div>
+              <div class="item-tool">Figma</div>
+              <div class="item-scope">editor seat</div>
+            </div>
+            <div class="item-for"><span class="lbl">For hire</span>Meera Iyer</div>
+            <div class="item-flags"></div>
+            <div class="item-wait">Waiting 1 day</div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>
