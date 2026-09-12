@@ -9,6 +9,22 @@ end-to-end pipeline).
 definitions I classified on, and the reasoning for every one of the five functions (including
 the compound ones that split across all three buckets).
 
+## See the agents running
+
+**▶ Interactive console: https://claude.ai/code/artifact/fc139340-d938-4786-862c-93cbbddc2421**
+
+A one-page UI over all three agents, built from their real output:
+- **Ticket Triage** — the full routed run, plus a **live classifier**: type any ticket and see
+  the deterministic gate + reasoner decide in your browser (logic ported verbatim from
+  `triage_agent.py`, gate and all).
+- **At-Risk Briefing** — toggle Acme Corp (HIGH risk) vs Globex LLC (LOW) to compare retention
+  briefs, churn signals, and call talking points.
+- **Weekly Grading** — score distribution, auto-fail rate, per-agent/per-category means, and the
+  failure-tag patterns.
+
+The console *displays* real output for all three and *re-runs* the triage logic live; the
+briefing and grading agents run offline via the Python below. Source: [`docs/ui/console.html`](docs/ui/console.html).
+
 ## The verdicts
 
 | # | Function | Verdict |
@@ -29,7 +45,8 @@ support-automation/
 ├── README.md                     ← you are here
 ├── docs/
 │   ├── DECISIONS.md              ← Skill/Agent/Neither classification + justification (core)
-│   └── AI_USAGE.md               ← what was human-decided vs. AI-generated
+│   ├── AI_USAGE.md               ← what was human-decided vs. AI-generated
+│   └── ui/console.html           ← interactive console over all three agents (link above)
 ├── skills/
 │   ├── policy-safe-reply/        ← #2  SKILL.md + references/
 │   ├── bug-triage-writeup/       ← #5  SKILL.md + references/
@@ -109,13 +126,6 @@ Skills are Markdown: to "run" one, read its `SKILL.md` and apply it to a ticket.
 To switch an agent to a live model: `pip install anthropic`, set `ANTHROPIC_API_KEY`, and pass
 `ClaudeReasoner()` / `ClaudeSynthesizer()` / `ClaudeGrader()` into the agent constructor.
 Nothing else changes.
-
-## What I deliberately did NOT build
-Per the "no orchestration / no pipeline" instruction, and explained in `docs/DECISIONS.md`:
-- **cross-component wiring** — e.g. the triage agent calling the bug-triage or reply skills in
-  a full system; each component is built and tested in isolation, as the task specified;
-- **the scheduler/cron** that would invoke the weekly-grading runner on a cadence — that
-  trigger is infrastructure, not agent logic. (The runner itself *is* built — see #4 above.)
 
 ## AI usage disclosure
 See [`docs/AI_USAGE.md`](docs/AI_USAGE.md) for where AI was used, what was researched vs.
